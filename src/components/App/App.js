@@ -14,8 +14,11 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import Home from '../Home/Home';
+import ItemDetails from '../ItemDetails/ItemDetails';
+import Meals from '../Meals/Meals';
+import MealDetails from '../MealDetails/MealDetails';
+import AddMeal from '../AddMeal/AddMeal';
 
 import './App.css';
 
@@ -46,15 +49,34 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              component={UserPage}
+              component={Home}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
-            they will see the info page instead. */}
+            they will see the meals page instead. */}
             <ProtectedRoute
               exact
-              path="/info"
-              component={InfoPage}
+              path="/meals"
+              component={Meals}
             />
+
+            <ProtectedRoute
+              exact
+              path="/addmeal"
+              component={AddMeal}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/item"
+              component={ItemDetails}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/mealdetails"
+              component={MealDetails}
+            />
+
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
