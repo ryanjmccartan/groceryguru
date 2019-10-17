@@ -1,18 +1,59 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 
 class AddMeal extends Component {
+
+state = {
+newMeal: {
+    mealName: '',
+    ingredients: [],
+    recipe: ''
+  },
+  singleIngredient: ''
+}
+
+// addIngredient = (event) => {
+//   this.state.newMeal.ingredient.push(event.target.value);
+// }
+
+handleChange = (event, input) => {
+  event.preventDefault();
+  this.setState({
+    newMeal: {
+      ...this.state.newMeal,
+      [input]: event.target.value
+    },
+    singleIngredient: event.target.value
+  })
+}
+
+addMeal = (event) => {
+    event.preventDefault();
+    console.log('in addMeal');
+    axios.post('/addmeal').then(response => {
+      console.log('this is response', response);
+    }).catch(error => {
+      console.log('error with post request', error);
+    })
+  }
+
+
   render() {
     return(
       <div>
     <p>
       Add meal
-
-      <input placeholder="name of meal"/>
-      <input placeholder="ingredients"/>
-      <input placeholder="recipe"/>
-
     </p>
+
+    <form onSubmit={this.addMeal}>
+      <input type='text' value={this.state.newMeal.mealName} onChange={(event) => {this.handleChange(event, 'mealName')}} placeholder="name of meal"/>
+      <input type='text' value={this.state.newMeal.singleIngredient} onChange={(event) => {this.handleChange(event, 'singleIngredient')}} placeholder="ingredient"/>
+      {/* <button onClick={() => this.addIngredient}>Add Ingredient</button> */}
+      <input type='text' value={this.state.newMeal.recipe} onChange={(event) => {this.handleChange(event, 'recipe')}} placeholder="recipe instructions"/>
+      <input type='submit' placeholder='Add Meal'/>
+    </form>
+   
   </div>
     )
   }
