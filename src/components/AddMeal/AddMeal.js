@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 
 class AddMeal extends Component {
@@ -11,7 +12,6 @@ state = {
     recipe: ''
   },
   ingredients: []
-  
 }
 
 // addIngredient = (event) => {
@@ -31,12 +31,13 @@ handleChange = (event, input) => {
 
 addMeal = (event) => {
     event.preventDefault();
+    this.props.dispatch({type: 'POST_MEAL', payload: this.state.newMeal})
     console.log('in addMeal');
-    axios.post('/addmeal', this.state.newMeal).then(response => {
-      console.log('this is response', response);
-    }).catch(error => {
-      console.log('error with post request', error);
-    })
+    // axios.post('/addmeal', this.state.newMeal).then(response => {
+    //   console.log('this is response', response);
+    // }).catch(error => {
+    //   console.log('error with post request', error);
+    // })
   }
 
 
@@ -60,6 +61,8 @@ addMeal = (event) => {
   }
 }
 
+const putReduxOnProps = (reduxState) => ({
+  reduxState
+})
 
-
-export default AddMeal;
+export default connect(putReduxOnProps)(AddMeal);
