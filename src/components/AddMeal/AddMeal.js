@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 
 
@@ -30,15 +29,10 @@ handleChange = (event, input) => {
 }
 
 addMeal = (event) => {
-    event.preventDefault();
     this.props.dispatch({type: 'POST_MEAL', payload: this.state.newMeal})
-    console.log('in addMeal');
-    // axios.post('/addmeal', this.state.newMeal).then(response => {
-    //   console.log('this is response', response);
-    // }).catch(error => {
-    //   console.log('error with post request', error);
-    // })
+    console.log('in addMeal', this.state.newMeal);
   }
+
 
 
   render() {
