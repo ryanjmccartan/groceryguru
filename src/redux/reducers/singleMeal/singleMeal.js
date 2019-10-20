@@ -1,13 +1,12 @@
-// Stores meals
-const mealReducer = (state = [], action) => {
+// Single meal
+const singleMeal = (state = [], action) => {
     console.log(action);
     switch (action.type){
-        case 'SET_MEAL':
+        case 'SINGLE_MEAL':
             return action.payload
         default: 
             return state
     }
 };
 
-
-export default mealReducer
+export default singleMeal;

@@ -9,7 +9,7 @@ state = {
   mealChange: {
     newName: '',
     newRecipe: '',
-    id: this.props.reduxState.mealReducer.meal_id
+    id: this.props.reduxState.singleMeal
   }
 }
 
