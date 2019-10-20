@@ -25,8 +25,12 @@ handleChange = (event, input) => {
 updateMeal = (meal) => {
   console.log('in updateMeal', meal);
   this.props.dispatch({type: 'EDIT_MEAL', payload: meal});
-  // alert('Meal has been updated');
+  alert('Meal has been updated');
   this.props.history.push('/meals');
+}
+
+addIngredients = (ingredient) => {
+  this.props.dispatch({type: 'FETCH_INGREDIENT', payload: ingredient}) 
 }
 
 
@@ -39,12 +43,14 @@ updateMeal = (meal) => {
              <p>Meal name: {meal.meal_name}</p>
              <p>Ingredients: {meal.ingredient_name}</p>
              <p>Recipe: {meal.recipe}</p>
+             <button onClick={this.addIngredients(meal.ingredient_name)}>Add Ingredients to Grocery List</button>
              </div>
          }
        })} 
        <input onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
        <input onChange={(event) => this.handleChange(event, 'newRecipe')} placeholder='change recipe'/>
        <button onClick={() => this.updateMeal(this.state.mealChange)}>Update Meal</button>
+       <br/>
       </div>
     )
   }

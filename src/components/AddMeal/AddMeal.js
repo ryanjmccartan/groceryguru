@@ -32,7 +32,7 @@ addMeal = (event) => {
     this.props.dispatch({type: 'POST_MEAL', payload: this.state.newMeal})
     console.log('in addMeal', this.state.newMeal);
     alert(`You've added a meal`);
-    this.props.history.push('/meal');
+    this.props.history.push('/meals');
   }
 
 

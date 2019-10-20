@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
-import Home from '../Home/Home';
+import Home from '../GroceryList/GroceryList';
 import ItemDetails from '../ItemDetails/ItemDetails';
 import Meals from '../Meals/Meals';
 import MealDetails from '../MealDetails/MealDetails';

@@ -14,7 +14,7 @@ class MealList extends Component {
         return(
             <div className="mealList">
             <button onClick={() => this.props.mealDetails(this.props.meal.meal_id)}>{this.props.meal.meal_name}</button>
-            <button onClick={() => this.editMeal(this.props.meal.id)}>Edit Meal</button>
+            {/* <button onClick={() => this.editMeal(this.props.meal.id)}>Edit Meal</button> */}
         </div>
         )}
 }
