@@ -1,10 +1,10 @@
-// Stores meals in reducer
+// Stores meals
 
 const mealReducer = (state = [], action) => {
     console.log(action);
     switch (action.type){
-        case ('SET_MEAL'):
-            return [...state, action.payload];  
+        case 'SET_MEAL':
+            return action.payload
         default: 
             return state
     }

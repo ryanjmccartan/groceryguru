@@ -7,7 +7,8 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     console.log('getting meals');
-    const queryText = `SELECT * FROM "meal";`;
+    const queryText = `SELECT "meal".meal_name, "meal".recipe, "ingredient".ingredient_name FROM "meal"
+    JOIN "ingredient" ON "meal".id = "ingredient".meal_id;`;
    pool.query(queryText).then(result => {
        res.send(result.rows)
    }).catch(error => {

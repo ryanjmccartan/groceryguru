@@ -21,7 +21,6 @@ function* getMeal() {
     }
 }
 
-// Function will call the GET request
 
 function* mealSaga() {
     yield takeEvery('POST_MEAL', postMeal)
