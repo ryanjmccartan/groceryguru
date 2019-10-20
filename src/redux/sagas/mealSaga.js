@@ -33,11 +33,23 @@ function* editMeal(action) {
     }
 }
 
+// DELETE request to delete meal
+function* deleteMeal(action) {
+    try{
+        console.log('in deleteMeal');
+        yield axios.delete('/meal/' + action.payload)
+        yield getMeal();
+    }catch (error) {
+        console.log('error with delete request', error)
+    }
+}
+
 
 function* mealSaga() {
     yield takeEvery('POST_MEAL', postMeal)
     yield takeEvery('GET_MEAL', getMeal)
     yield takeEvery('EDIT_MEAL', editMeal)
+    yield takeEvery('DELETE_MEAL', deleteMeal)
 }
 
 export default mealSaga;

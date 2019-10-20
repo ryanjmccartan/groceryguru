@@ -51,6 +51,17 @@ router.post('/', (req, res) => {
     })
 });
 
+// DELETE meal
+router.delete('/:id', (req, res) => {
+    const queryMeal = `DELETE FROM "meal" "ingredient" WHERE "id" = $1;`;
+    pool.query(queryMeal, [req.params.id]).then( () => {
+        res.sendStatus(200);
+    }).catch(error => {
+        console.log('error with delete request', error);
+        res.sendStatus(500);
+    })
+})
+
 // GET route to grab meal ID
 // router.get('/:id', (req, res) => {
 //     console.log('getting ID');

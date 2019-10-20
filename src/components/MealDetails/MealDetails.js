@@ -30,7 +30,14 @@ updateMeal = (meal) => {
 }
 
 addIngredients = (ingredient) => {
-  this.props.dispatch({type: 'FETCH_INGREDIENT', payload: ingredient}) 
+  console.log(ingredient)
+  this.props.dispatch({type: 'SET_INGREDIENT', payload: ingredient})
+  alert('Ingredients added to list'); 
+}
+
+deleteMeal = (meal) => {
+  this.props.dispatch({type: 'DELETE_MEAL', payload: meal});
+  this.props.history.push('/meals');
 }
 
 
@@ -43,7 +50,8 @@ addIngredients = (ingredient) => {
              <p>Meal name: {meal.meal_name}</p>
              <p>Ingredients: {meal.ingredient_name}</p>
              <p>Recipe: {meal.recipe}</p>
-             <button onClick={this.addIngredients(meal.ingredient_name)}>Add Ingredients to Grocery List</button>
+             <button onClick={() => this.addIngredients(meal.ingredient_name)}>Add Ingredients to Grocery List</button>
+             <button onClick={() => this.deleteMeal(meal.id)}>Delete Meal</button>
              </div>
          }
        })} 

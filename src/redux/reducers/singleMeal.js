@@ -1,4 +1,4 @@
-// Single meal
+// Reducer stores single meal
 const singleMeal = (state = [], action) => {
     console.log(action);
     switch (action.type){
