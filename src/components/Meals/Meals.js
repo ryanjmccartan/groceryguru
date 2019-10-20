@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import MealItem from '../MealItem/MeaItem';
 
 
 class Meals extends Component {
@@ -18,19 +17,27 @@ addMealRoute = () => {
   this.props.history.push('/addmeal');
 }
 
-
+mealDetails = (id) => {
+  this.props.history.push('/meals/details/' + id)
+}  
 
   render() {
     return(
       <div>
         <p>Meals</p>
         <br/>
-        {JSON.stringify(this.props.reduxState.mealReducer)}
+        {/* {JSON.stringify(this.props.reduxState.mealReducer)} */}
         <br/>
-        <button onClick={this.addMealRoute}>Add Meal</button>
-        {this.props.reduxState.mealReducer.map((meal, i) => {
-                  return <MealItem key={i} meal={meal}/>
+        {this.props.reduxState.mealReducer.map((meal) => {
+                  return <li key={meal.id}>
+                    <button onClick={() => this.mealDetails(meal.id)}>{meal.meal_name}</button>
+                    {/* {meal.ingredient_name}
+                    {meal.recipe} */}
+            </li>
               })}
+              <br/>
+        <button onClick={this.addMealRoute}>Add Meal</button>
+
       </div>
     )
   }

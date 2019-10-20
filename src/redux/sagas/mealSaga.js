@@ -5,6 +5,7 @@ import axios from 'axios';
 function* postMeal(action){
     try{
         yield axios.post('/meal', action.payload);
+        yield getMeal();
     }catch(error){
         console.log('error with post', error);
     }
@@ -21,10 +22,22 @@ function* getMeal() {
     }
 }
 
+// PUT request to edit meal
+function* editMeal(action) {
+    try{
+        console.log('in editMeal')
+        yield axios.put('/meal', action.payload)
+        yield getMeal();
+    }catch(error) {
+        console.log('error with put request', error)
+    }
+}
+
 
 function* mealSaga() {
     yield takeEvery('POST_MEAL', postMeal)
     yield takeEvery('GET_MEAL', getMeal)
+    yield takeEvery('EDIT_MEAL', editMeal)
 }
 
 export default mealSaga;

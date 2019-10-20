@@ -3,13 +3,20 @@ import {connect} from 'react-redux';
 
 class MealList extends Component {
 
+
+editMeal = (id) => {
+    this.props.dispatch({type: 'EDIT_MEAL', payload: id})
+    console.log('in editMeal');
+    this.props.history.push('/' + id)
+}   
+
     render() {
         return(
             <div className="mealList">
-            {JSON.stringify(this.props.meal.name)}
             <span>{this.props.meal.meal_name}</span>
             <span>{this.props.meal.ingredient_name}</span>
             <span>{this.props.meal.meal_name}</span>
+            <button onClick={() => this.editMeal(this.props.meal.id)}>Edit Meal</button>
         </div>
         )}
 }

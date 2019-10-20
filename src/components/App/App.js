@@ -61,21 +61,27 @@ class App extends Component {
 
             <ProtectedRoute
               exact
+              path="/meals/details/:id"
+              component={MealDetails}
+            />
+
+            <ProtectedRoute
+              exact
               path="/addmeal"
               component={AddMeal}
             />
 
             <ProtectedRoute
               exact
-              path="/item"
+              path="/item:id"
               component={ItemDetails}
             />
 
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/mealdetails"
               component={MealDetails}
-            />
+            /> */}
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
