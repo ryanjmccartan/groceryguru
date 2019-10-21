@@ -4,8 +4,12 @@ import {connect} from 'react-redux';
 
 class Home extends Component {
 
+componentDidMount() {
+
+}
+
 state = {
-  ingredient: this.props.reduxState.ingredientReducer
+  ingredient: this.props.match.params.id
 }
 
 

@@ -24,7 +24,6 @@ handleChange = (event, input) => {
       ...this.state.newMeal,
       [input]: event.target.value
     },
-    // singleIngredient: event.target.value
   })
 }
 
