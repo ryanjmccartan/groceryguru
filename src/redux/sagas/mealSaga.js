@@ -15,7 +15,7 @@ function* postMeal(action){
 function* getMeal() {
     try{
         const response = yield axios.get('/meal');
-        console.log(response.data);
+        console.log('this is getMeal', response.data);
         yield put({type: 'SET_MEAL', payload: response.data});
     }catch (error) {
         console.log('error with get request', error);
@@ -25,7 +25,7 @@ function* getMeal() {
 // PUT request to edit meal
 function* editMeal(action) {
     try{
-        console.log('in editMeal')
+        console.log('in editMeal', action.payload)
         yield axios.put('/meal', action.payload)
         yield getMeal();
     }catch(error) {

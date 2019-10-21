@@ -23,7 +23,7 @@ handleChange = (event, input) => {
 }
 
 updateMeal = (meal) => {
-  console.log('in updateMeal', meal);
+  console.log('in updateMeal', this.state.mealChange);
   this.props.dispatch({type: 'EDIT_MEAL', payload: meal});
   alert('Meal has been updated');
   this.props.history.push('/meals');
@@ -37,6 +37,7 @@ addIngredients = (ingredient) => {
 
 deleteMeal = (meal) => {
   this.props.dispatch({type: 'DELETE_MEAL', payload: meal});
+  alert('Meal has been deleted');
   this.props.history.push('/meals');
 }
 
@@ -45,13 +46,13 @@ deleteMeal = (meal) => {
     return(
       <div>
        {this.props.reduxState.mealReducer.map(meal => {
-         if(meal.id == this.props.match.params.id){
-           return <div>
+          if(meal.id == this.props.match.params.id){           
+            return <div key={meal.id}>
              <p>Meal name: {meal.meal_name}</p>
              <p>Ingredients: {meal.ingredient_name}</p>
              <p>Recipe: {meal.recipe}</p>
              <button onClick={() => this.addIngredients(meal.ingredient_name)}>Add Ingredients to Grocery List</button>
-             <button onClick={() => this.deleteMeal(meal.id)}>Delete Meal</button>
+             <button onClick={() => this.deleteMeal(meal.meal_id)}>Delete Meal</button>
              </div>
          }
        })} 

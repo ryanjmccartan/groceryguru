@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
     // const queryText = `SELECT "meal".meal_name, "meal".recipe, "ingredient".ingredient_name FROM "meal"
     // JOIN "ingredient" ON "meal".id = "ingredient".meal_id;`;
     pool.query(queryText).then(result => {
+        console.log(result.rows);
         res.send(result.rows)
     }).catch(error => {
         console.log('error with getting meals', error)
@@ -17,10 +18,10 @@ router.get('/', (req, res) => {
     })
 });
 
-// GET route to grab ingredient ID
+// GET route to grab ingredient
 router.get('/:id', (req, res) => {
-    console.log('getting ingredient ID');
-    const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient" WHERE "id" = $1;`;
+    console.log('getting ingredient');
+    const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient" WHERE "meal_id" = $1;`;
     pool.query(queryText, [req.params.id]).then(result => {
         res.send(result.rows)
     }).catch(error => {
@@ -38,6 +39,7 @@ router.put('/', (req, res) => {
         updatedMeal.newRecipe,
         updatedMeal.id
     ]
+    console.log(queryValues);
     pool.query(queryText, queryValues).then(() => {
         res.sendStatus(200);
     }).catch(error => {
@@ -55,7 +57,7 @@ router.post('/', (req, res) => {
     pool.query(queryMeal, [req.body.name, req.body.recipe])
         .then((result) =>{
             let [one] = result.rows
-            pool.query(queryIngredient, [req.body.singleIngredient,one.id])
+            pool.query(queryIngredient, [req.body.singleIngredient, one.id])
                 .then(result => {
                     console.log('in post request', req.body);
                     res.sendStatus(200);
@@ -72,6 +74,7 @@ router.post('/', (req, res) => {
 // DELETE meal
 router.delete('/:id', (req, res) => {
     const queryMeal = `DELETE FROM "meal" "ingredient" WHERE "id" = $1;`;
+    console.log('in delete', req.params.id);
     pool.query(queryMeal, [req.params.id]).then(() => {
         res.sendStatus(200);
     }).catch(error => {

@@ -9,4 +9,4 @@ const ingredientReducer = (state = [], action) => {
     }
 }
 
-export default ingredientReducer;
+export default ingredientReducer
