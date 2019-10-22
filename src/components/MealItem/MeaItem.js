@@ -13,7 +13,7 @@ class MealList extends Component {
     render() {
         return(
             <div className="mealList">
-            <button onClick={() => this.props.mealDetails(this.props.item.id)}>{this.props.item.meal_name}</button>
+            <button onClick={() => this.props.mealDetails(this.props.meal.id)}>{this.props.meal.meal_name}</button>
             {/* <button onClick={() => this.editMeal(this.props.meal.id)}>Edit Meal</button> */}
         </div>
         )}

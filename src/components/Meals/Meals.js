@@ -30,8 +30,8 @@ mealDetails = (id) => {
         <br/>
         {/* {JSON.stringify(this.props.reduxState.mealReducer)} */}
         <br/>
-        {this.props.reduxState.mealReducer.map((item) => {
-                  return <MealItem key={item.id} item={item} mealDetails={this.mealDetails}/>
+        {this.props.reduxState.mealReducer.map((meal) => {
+                  return <MealItem key={meal.id} meal={meal} mealDetails={this.mealDetails}/>
               })}
               <br/>
         <button onClick={this.addMealRoute}>Add Meal</button>

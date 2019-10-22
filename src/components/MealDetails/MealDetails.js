@@ -10,6 +10,7 @@ componentDidMount() {
 }  
 
 getIngredient = () => {
+  console.log('this is params id', this.props.match.params.id);
   this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id});
 }
 
@@ -53,25 +54,26 @@ deleteMeal = (meal) => {
   render() {
     return(
       <div>
-       {this.props.reduxState.mealReducer.map(item => {
-          if(item.meal_id == this.props.match.params.id || item.id == this.props.match.params.id){           
-            return <div key={item.id}>
-             <p>Meal name: {item.meal_name}</p>
-             <p>Recipe: {item.recipe}</p>
-             <button onClick={() => this.addIngredients(item.ingredient_name)}>Add Ingredients to Grocery List</button>
-             <button onClick={() => this.deleteMeal(item.meal_id)}>Delete Meal</button>
+       {this.props.reduxState.mealReducer.map(meal => {
+          if(meal.id == this.props.match.params.id){ 
+            // || meal.id == this.props.match.params.id){           
+            return <div key={meal.id}>
+             <p>Meal name: {meal.meal_name}</p>
+             <p>Recipe: {meal.recipe}</p>
+             {/* <button onClick={() => this.addIngredients(item.ingredient_name)}>Add Ingredients to Grocery List</button> */}
+             <button onClick={() => this.deleteMeal(meal.meal_id)}>Delete Meal</button>
              </div>
          }
        })}
-                  {JSON.stringify(this.props.reduxState.ingredientReducer)}
-
+                  {/* {JSON.stringify(this.props.reduxState.ingredientReducer)} */}
+       Ingredients:
        {this.props.reduxState.ingredientReducer.map(ingredient => {
-         if(ingredient.id == this.props.match.params.id){
+        //  if(ingredient.id){
         return <div key={ingredient.id}>
-        Ingredients: {ingredient.ingredient_name}
+        {ingredient.ingredient_name}
         </div>
          }
-       })} 
+       )} 
        <input onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
        <input onChange={(event) => this.handleChange(event, 'newRecipe')} placeholder='change recipe'/>
        <button onClick={() => this.updateMeal(this.state.mealChange)}>Update Meal</button>
