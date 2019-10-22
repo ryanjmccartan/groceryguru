@@ -5,10 +5,10 @@ const router = express.Router();
 // GETs meals and ingredients
 router.get('/', (req, res) => {
     console.log('getting meals');
-    const queryText = `SELECT * FROM "meal"
-    JOIN "ingredient" ON "meal".id = "ingredient".meal_id;`;
+    const queryText = `SELECT * FROM "meal";`;
+    // JOIN "ingredient" ON "meal".id = "ingredient".meal_id;`;
     pool.query(queryText).then(result => {
-        console.log(result.rows);
+        // console.log(result.rows);
         res.send(result.rows)
     }).catch(error => {
         console.log('error with getting meals', error)
@@ -18,11 +18,11 @@ router.get('/', (req, res) => {
 
 /// GET ingredients for specific meal
 router.get('/:id', (req, res) => {
-    const queryText = `SELECT * FROM "ingredient"
+    const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient"
     JOIN "meal" ON "meal".id = "ingredient".meal_id
-    WHERE "ingredient".meal_id = $1;`;
+    WHERE "meal".id = $1;`;
     pool.query(queryText, [req.params.id]).then(result => {
-        console.log(result);
+        console.log('this is ingredient', result.rows);
         res.send(result.rows)
     }).catch(error => {
         console.log('error with getting ingredients', error);

@@ -5,6 +5,14 @@ import {connect} from 'react-redux';
 
 class MealDetails extends Component {
 
+componentDidMount() {
+  this.getIngredient();
+}  
+
+getIngredient = () => {
+  this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id});
+}
+
 state = {
   mealChange: {
     newName: '',
@@ -49,11 +57,19 @@ deleteMeal = (meal) => {
           if(item.meal_id == this.props.match.params.id || item.id == this.props.match.params.id){           
             return <div key={item.id}>
              <p>Meal name: {item.meal_name}</p>
-             <p>Ingredients: {item.ingredient_name}</p>
              <p>Recipe: {item.recipe}</p>
              <button onClick={() => this.addIngredients(item.ingredient_name)}>Add Ingredients to Grocery List</button>
              <button onClick={() => this.deleteMeal(item.meal_id)}>Delete Meal</button>
              </div>
+         }
+       })}
+                  {JSON.stringify(this.props.reduxState.ingredientReducer)}
+
+       {this.props.reduxState.ingredientReducer.map(ingredient => {
+         if(ingredient.id == this.props.match.params.id){
+        return <div key={ingredient.id}>
+        Ingredients: {ingredient.ingredient_name}
+        </div>
          }
        })} 
        <input onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>

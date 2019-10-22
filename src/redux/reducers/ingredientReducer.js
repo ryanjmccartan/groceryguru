@@ -3,10 +3,10 @@ const ingredientReducer = (state = [], action) => {
     console.log(action);
     switch(action.type){
         case 'SET_INGREDIENT':
-            return [...state, action.payload];
+            return action.payload
         default:
             return state
     }
 }
 
-export default ingredientReducer
+export default ingredientReducer;
