@@ -45,14 +45,14 @@ deleteMeal = (meal) => {
   render() {
     return(
       <div>
-       {this.props.reduxState.mealReducer.map(meal => {
-          if(meal.id == this.props.match.params.id){           
-            return <div key={meal.id}>
-             <p>Meal name: {meal.meal_name}</p>
-             <p>Ingredients: {meal.ingredient_name}</p>
-             <p>Recipe: {meal.recipe}</p>
-             <button onClick={() => this.addIngredients(meal.ingredient_name)}>Add Ingredients to Grocery List</button>
-             <button onClick={() => this.deleteMeal(meal.meal_id)}>Delete Meal</button>
+       {this.props.reduxState.mealReducer.map(item => {
+          if(item.meal_id == this.props.match.params.id || item.id == this.props.match.params.id){           
+            return <div key={item.id}>
+             <p>Meal name: {item.meal_name}</p>
+             <p>Ingredients: {item.ingredient_name}</p>
+             <p>Recipe: {item.recipe}</p>
+             <button onClick={() => this.addIngredients(item.ingredient_name)}>Add Ingredients to Grocery List</button>
+             <button onClick={() => this.deleteMeal(item.meal_id)}>Delete Meal</button>
              </div>
          }
        })} 

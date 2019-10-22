@@ -22,6 +22,9 @@ function* getMeal() {
     }
 }
 
+// GET ingredients for specific meal
+
+
 // PUT request to edit meal
 function* editMeal(action) {
     try{

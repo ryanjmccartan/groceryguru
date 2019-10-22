@@ -7,8 +7,6 @@ router.get('/', (req, res) => {
     console.log('getting meals');
     const queryText = `SELECT * FROM "meal"
     JOIN "ingredient" ON "meal".id = "ingredient".meal_id;`;
-    // const queryText = `SELECT "meal".meal_name, "meal".recipe, "ingredient".ingredient_name FROM "meal"
-    // JOIN "ingredient" ON "meal".id = "ingredient".meal_id;`;
     pool.query(queryText).then(result => {
         console.log(result.rows);
         res.send(result.rows)
@@ -18,17 +16,31 @@ router.get('/', (req, res) => {
     })
 });
 
-// GET route to grab ingredient
+/// GET ingredients for specific meal
 router.get('/:id', (req, res) => {
-    console.log('getting ingredient');
-    const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient" WHERE "meal_id" = $1;`;
+    const queryText = `SELECT * FROM "ingredient"
+    JOIN "meal" ON "meal".id = "ingredient".meal_id
+    WHERE "ingredient".meal_id = $1;`;
     pool.query(queryText, [req.params.id]).then(result => {
+        console.log(result);
         res.send(result.rows)
     }).catch(error => {
-        console.log('error with getting ID', error);
+        console.log('error with getting ingredients', error);
         res.sendStatus(500);
     })
-});
+})
+
+// GET route to grab ingredient
+// router.get('/:id', (req, res) => {
+//     console.log('getting ingredient');
+//     const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient" WHERE "meal_id" = $1;`;
+//     pool.query(queryText, [req.params.id]).then(result => {
+//         res.send(result.rows)
+//     }).catch(error => {
+//         console.log('error with getting ID', error);
+//         res.sendStatus(500);
+//     })
+// });
 
 // PUT request to update meal
 router.put('/', (req, res) => {
