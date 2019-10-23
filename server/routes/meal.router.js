@@ -73,7 +73,7 @@ router.put('/', (req, res) => {
 })
 
 
-// POST meals to database
+// POST meals and ingredients to database
 router.post('/', (req, res) => {
     const queryMeal = `INSERT INTO "meal" ("meal_name", "recipe")
     VALUES ($1, $2) RETURNING "meal".id;`;

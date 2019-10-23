@@ -45,6 +45,7 @@ function* deleteMeal(action) {
     }
 }
 
+// Function to grab single meal by ID
 function* getMealByID(action) {
     try{
         const response = yield axios.get(`/meal/details/${action.payload}`)

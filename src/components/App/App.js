@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
-import Home from '../GroceryList/GroceryList';
+import GroceryList from '../GroceryList/GroceryList';
 import ItemDetails from '../ItemDetails/ItemDetails';
 import Meals from '../Meals/Meals';
 import MealDetails from '../MealDetails/MealDetails';
@@ -49,7 +49,7 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              component={Home}
+              component={GroceryList}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the meals page instead. */}

@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 
-class Home extends Component {
+class GroceryList extends Component {
 
 componentDidMount() {
-
+this.props.dispatch({type:'GET_INGREDIENT'})
 }
 
-state = {
-  ingredient: this.props.match.params.id
-}
+// state = {
+//   ingredients: [
+//     name:
+//   ] this.props.dispatch({type:'GET_INGREDIENT'})
+// }
 
 
   render() {
@@ -19,10 +21,10 @@ state = {
     <p>
       Home/GroceryList
     </p>
-{/* // {JSON.stringify(this.props.reduxState.ingredientReducer)} */}
-    {this.props.reduxState.ingredientReducer.map(ingredient => {
+     {JSON.stringify(this.props.reduxState.ingredientReducer)}
+    {/* {this.props.reduxState.ingredientReducer.map(ingredient => {
         return <li>{ingredient}</li>
-    })}
+    })} */}
   </div>
     )
   }
@@ -32,4 +34,4 @@ const putReduxOnProps = (reduxState) => ({
   reduxState
 })
 
-export default connect(putReduxOnProps)(Home);
+export default connect(putReduxOnProps)(GroceryList);
