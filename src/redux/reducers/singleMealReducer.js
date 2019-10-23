@@ -1,5 +1,5 @@
 // Reducer stores single meal
-const singleMeal = (state = [], action) => {
+const singleMealReducer = (state = [], action) => {
     console.log(action);
     switch (action.type){
         case 'SINGLE_MEAL':
@@ -9,4 +9,4 @@ const singleMeal = (state = [], action) => {
     }
 };
 
-export default singleMeal;
+export default singleMealReducer;

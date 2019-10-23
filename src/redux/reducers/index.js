@@ -3,7 +3,7 @@ import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
 import mealReducer from './mealReducer';
-import singleMeal from './singleMeal';
+import singleMealReducer from './singleMealReducer';
 import ingredientReducer from './ingredientReducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
   mealReducer, // will store meals created
-  singleMeal, // reducer for single meal
+  singleMealReducer, // reducer for single meal
   ingredientReducer // reducer for storing ingredients
 });
 

@@ -30,6 +30,18 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// GET single meal
+router.get('/details/:id', (req, res) =>{
+    const queryText = `SELECT * FROM "meal" WHERE "id" = $1;`;
+    pool.query(queryText, [req.params.id]).then(result => {
+        res.send(result.rows)
+        console.log(result.rows)
+    }).catch(error => {
+        console.log('error with getting specific meal', error);
+        res.sendStatus(500);
+    })
+})
+
 // GET route to grab ingredient
 // router.get('/:id', (req, res) => {
 //     console.log('getting ingredient');

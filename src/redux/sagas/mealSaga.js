@@ -22,8 +22,6 @@ function* getMeal() {
     }
 }
 
-// GET ingredients for specific meal
-
 
 // PUT request to edit meal
 function* editMeal(action) {
@@ -47,10 +45,20 @@ function* deleteMeal(action) {
     }
 }
 
+function* getMealByID(action) {
+    try{
+        const response = yield axios.get(`/meal/details/${action.payload}`)
+        yield put({type: 'SINGLE_MEAL', payload: response.data})
+    }catch(error) {
+        console.log('error with getting specific meal');
+    }
+}
+
 
 function* mealSaga() {
     yield takeEvery('POST_MEAL', postMeal)
     yield takeEvery('GET_MEAL', getMeal)
+    yield takeEvery('GET_MEAL_BY_ID', getMealByID)
     yield takeEvery('EDIT_MEAL', editMeal)
     yield takeEvery('DELETE_MEAL', deleteMeal)
 }

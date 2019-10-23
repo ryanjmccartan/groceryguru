@@ -1,7 +1,7 @@
 import {put, takeEvery} from 'redux-saga/effects';
 import axios from 'axios';
 
-
+// GET ingredients for specific meal
 function* getIngredient(action) {
     try{
         const response = yield axios.get('/meal/' + action.payload);

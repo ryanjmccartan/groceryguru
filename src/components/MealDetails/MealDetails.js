@@ -5,50 +5,73 @@ import {connect} from 'react-redux';
 
 class MealDetails extends Component {
 
-componentDidMount() {
-  this.getIngredient();
+  state = {
+    mealChange: {
+      newName: '',
+      newRecipe: '',
+      id: this.props.match.params.id
+    }
+  }
+
+  componentDidMount() {
+    this.getIngredient();
+    this.props.dispatch({type: 'GET_MEAL_BY_ID', payload: this.props.match.params.id})
 }  
 
-getIngredient = () => {
-  console.log('this is params id', this.props.match.params.id);
-  this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id});
-}
-
-state = {
-  mealChange: {
-    newName: '',
-    newRecipe: '',
-    id: this.props.reduxState.singleMeal
-  }
-}
-
-handleChange = (event, input) => {
-  this.setState({
-    mealChange: {
-      ...this.state.mealChange, 
-      [input]: event.target.value
+  componentDidUpdate(preProps) {
+    if(this.props.reduxState.singleMealReducer != preProps.reduxState.singleMealReducer){
+      this.setEventToEdit();
     }
-  })
-}
+  }
 
-updateMeal = (meal) => {
-  console.log('in updateMeal', this.state.mealChange);
-  this.props.dispatch({type: 'EDIT_MEAL', payload: meal});
-  alert('Meal has been updated');
-  this.props.history.push('/meals');
-}
+  setEventToEdit = () => {
+    this.props.reduxState.singleMealReducer.forEach(meal => {
+      this.setState({
+        mealChange: {
+          newName: meal.meal_name,
+          newRecipe: meal.recipe,
+          id: this.props.match.params.id
+        }
+      })
+    })
+  }
 
-addIngredients = (ingredient) => {
-  console.log(ingredient)
-  this.props.dispatch({type: 'SET_INGREDIENT', payload: ingredient})
-  alert('Ingredients added to list'); 
-}
+  getIngredient = () => {
+    console.log('this is params id', this.props.match.params.id);
+    this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id});
+  }
 
-deleteMeal = (meal) => {
-  this.props.dispatch({type: 'DELETE_MEAL', payload: meal});
-  alert('Meal has been deleted');
-  this.props.history.push('/meals');
-}
+
+
+  handleChange = (event, input) => {
+    event.preventDefault();
+    this.setState({
+      mealChange: {
+        ...this.state.mealChange, 
+        [input]: event.target.value
+      }
+    })
+  }
+
+  updateMeal = (event) => {
+    event.preventDefault();
+    console.log('in updateMeal', this.state.mealChange);
+    this.props.dispatch({type: 'EDIT_MEAL', payload: this.state.mealChange});
+    alert('Meal has been updated');
+    this.props.history.push('/meals');
+  }
+
+  addIngredients = (ingredient) => {
+    console.log(ingredient)
+    this.props.dispatch({type: 'SET_INGREDIENT', payload: ingredient})
+    alert('Ingredients added to list'); 
+  }
+
+  deleteMeal = (meal) => {
+    this.props.dispatch({type: 'DELETE_MEAL', payload: meal});
+    alert('Meal has been deleted');
+    this.props.history.push('/meals');
+  }
 
 
   render() {
@@ -61,23 +84,25 @@ deleteMeal = (meal) => {
              <p>Meal name: {meal.meal_name}</p>
              <p>Recipe: {meal.recipe}</p>
              {/* <button onClick={() => this.addIngredients(item.ingredient_name)}>Add Ingredients to Grocery List</button> */}
-             <button onClick={() => this.deleteMeal(meal.meal_id)}>Delete Meal</button>
              </div>
          }
        })}
                   {/* {JSON.stringify(this.props.reduxState.ingredientReducer)} */}
        Ingredients:
        {this.props.reduxState.ingredientReducer.map(ingredient => {
-        //  if(ingredient.id){
         return <div key={ingredient.id}>
         {ingredient.ingredient_name}
+        <br/>
         </div>
          }
        )} 
-       <input onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
-       <input onChange={(event) => this.handleChange(event, 'newRecipe')} placeholder='change recipe'/>
-       <button onClick={() => this.updateMeal(this.state.mealChange)}>Update Meal</button>
+       <form onSubmit={this.updateMeal}>
+       <input defaultValue={this.state.mealChange.newName} onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
+       <input defaultValue={this.state.mealChange.newRecipe}  onChange={(event) => this.handleChange(event, 'newRecipe')} placeholder='change recipe'/>
+       <button type='submit'>Update Meal</button>
        <br/>
+       <button onClick={() => this.deleteMeal(this.state.mealChange.id)}>Delete Meal</button>
+       </form>  
       </div>
     )
   }
