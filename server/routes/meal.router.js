@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 /// GET ingredients for specific meal
 router.get('/:id', (req, res) => {
-    const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient"
+    const queryText = `SELECT "ingredient".id, "ingredient".ingredient_name FROM "ingredient"
     JOIN "meal" ON "meal".id = "ingredient".meal_id
     WHERE "meal".id = $1;`;
     pool.query(queryText, [req.params.id]).then(result => {

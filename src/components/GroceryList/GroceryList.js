@@ -21,7 +21,6 @@ this.props.dispatch({type:'GET_INGREDIENT'})
     <p>
       Home/GroceryList
     </p>
-     {JSON.stringify(this.props.reduxState.ingredientReducer)}
     {/* {this.props.reduxState.ingredientReducer.map(ingredient => {
         return <li>{ingredient}</li>
     })} */}
