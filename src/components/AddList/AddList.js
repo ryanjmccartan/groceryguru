@@ -17,20 +17,23 @@ class AddList extends Component{
     }
 
     // componentDidUpdate(preProps) {
-    //     if(this.props.reduxState.ingredientReducer != preProps.reduxState.ingredientReducer){
-    //         this.setEventToEdit();
+    //     if(this.props.reduxState.ingredientReducer.length !== preProps.reduxState.ingredientReducer.length){
+    //         // this.setEventToEdit();
+    //         this.setIngredients();
     //     }
     // }
 
     setIngredients = () => {
         this.props.reduxState.ingredientReducer.forEach(ingredient => {
-            this.setState({
-                list: {
-                ingredients: [...this.state.list.ingredients, ingredient.ingredient_name]
-                }
-            })
+            // this.setState({
+            //     list: {
+            //         ingredients: [...this.state.list.ingredients, ingredient.ingredient_name]
+            // }
+            // })
+            this.state.list.ingredients.push(ingredient.ingredient_name);
         })
-        console.log('this is ingredient state', this.state.list.ingredients)
+        this.setState({state: this.state});
+        console.log('this is ingredient state', this.state.list.ingredients);
     }
 
     handleChange = (event, input) => {
@@ -52,7 +55,8 @@ render() {
         <form>
             <input onChange={(event) => this.handleChange(event, 'listName')} placeholder='list name'/>
             <input value={this.state.list.ingredients}/>
-
+            <br/>
+            <button type='submit'>Add Ingredients</button>
         </form>
         </div>
     )

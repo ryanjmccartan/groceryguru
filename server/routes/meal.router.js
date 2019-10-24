@@ -46,6 +46,19 @@ router.post('/', (req, res) => {
         })
 });
 
+// GETs lists
+router.get('/addlist', (req, res) => {
+    console.log('getting list');
+    const queryText = `SELECT * FROM "list";`;
+    pool.query(queryText).then(result => {
+        console.log('here are the lists', result.rows);
+        res.send(result.rows);
+    }).catch(error => {
+        console.log('error with getting list', error)
+        res.sendStatus(500);
+    })
+});
+
 // GETs meals and ingredients
 router.get('/', (req, res) => {
     console.log('getting meals');
@@ -60,7 +73,7 @@ router.get('/', (req, res) => {
     })
 });
 
-/// GET ingredients for specific meal
+// GET ingredients for specific meal
 router.get('/:id', (req, res) => {
     const queryText = `SELECT "ingredient".id, "ingredient".ingredient_name FROM "ingredient"
     JOIN "meal" ON "meal".id = "ingredient".meal_id
