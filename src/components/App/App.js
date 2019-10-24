@@ -19,6 +19,7 @@ import ItemDetails from '../ItemDetails/ItemDetails';
 import Meals from '../Meals/Meals';
 import MealDetails from '../MealDetails/MealDetails';
 import AddMeal from '../AddMeal/AddMeal';
+import AddList from '../AddList/AddList';
 
 import './App.css';
 
@@ -69,6 +70,12 @@ class App extends Component {
               exact
               path="/addmeal"
               component={AddMeal}
+            />
+
+            <ProtectedRoute
+            exact
+            path='/meals/addlist/:id'
+            component={AddList}
             />
 
             <ProtectedRoute
