@@ -4,7 +4,7 @@ const ingredientReducer = (state = [], action) => {
     switch(action.type){
         case 'SET_INGREDIENT':
             return action.payload
-        case 'SET_SPECIFIC_INGREDIENTS':
+        case 'SET_LIST_INGREDIENTS':
             return action.payload
         default:
             return state

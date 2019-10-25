@@ -15,7 +15,7 @@ function* postIngredientsFromList(action){
     console.log('posting from list', action.payload)
     try{
         yield axios.post('meal/fromlist', action.payload);
-
+        yield put({type: 'GET_INGREDIENTS_BY_ID', payload: action.payload.id})
     }catch(error) {
         console.log('error with posting new ingredients', error);
     }
@@ -44,8 +44,8 @@ function* getList(){
 
 function* getIngredientsByID(action) {
     try{
-        const response = yield axios.get('/meal/list/ingredients/' + action.payload);
-        yield put({type: 'SET_SPECIFIC_INGREDIENTS', payload: response.data});
+        const response = yield axios.get(`/meal/list/ingredients/${action.payload}`);
+        yield put({type: 'SET_LIST_INGREDIENTS', payload: response.data});
         console.log('list ingredients', response.data);
     }catch(error) {
         console.log('error with getting list ingredients', error)
@@ -57,7 +57,7 @@ function* listSaga() {
     yield takeEvery('GET_LIST', getList)
     yield takeEvery('GET_LIST_BY_ID', getListByID)
     yield takeEvery('POST_INGREDIENTS_FROM_LIST', postIngredientsFromList)
-    yield takeEvery('GET_INGREDIENTS_BY_ID', getIngredientsByID)
+    yield takeEvery('GET_INGREDIENTS_BY_ID', getIngredientsByID) //!!! --->  move this to ingredientSaga 
     // yield takeEvery("POST_MEAL_ID", postMealID)
 }
 
