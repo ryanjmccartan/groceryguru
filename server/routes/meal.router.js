@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-// POST REQUESTS
+// POST REQUESTS //
 
 // POST meals and ingredients to database
 router.post('/', (req, res) => {
@@ -54,27 +54,7 @@ router.post('/fromlist', (req, res) => {
         });
 });
 
-// POST new list and tie into ingredients
-// router.post('/list', (req, res) => {
-//     const queryList = `INSERT INTO "list" ("list_name")
-//     VALUES ($1) RETURNING "list".id;`;
-//     const queryIngredient = `INSERT INTO "ingredient" ("list_id") VALUES ($1);`;
-//     pool.query(queryList, [req.body.listName])
-//         .then(result => {
-//             let [one] = result.rows
-//             pool.query(queryIngredient, [one.id])
-//                 .then(result => {
-//                     console.log('posting into list and ingredient', req.body);
-//                     res.sendStatus(200);
-//                 }).catch(error => {
-//                     console.log('error with posting to list/ingredient', error)
-//                     res.sendStatus(500);
-//                 });
-//         }).catch(error => {
-//             console.log(error);
-//             res.sendStatus(500);
-//         })
-// });
+
 
 //!! END POST REQUESTS !!//
 
@@ -92,7 +72,7 @@ router.get('/list/:id', (req, res) =>{
     })
 })
 
-// GETs ingredients from list
+// GETs lists
 router.get('/list', (req, res) => {
     console.log('getting lists');
     // update queryText to get all list data
@@ -103,6 +83,19 @@ router.get('/list', (req, res) => {
         res.send(result.rows);
     }).catch(error => {
         console.log('error with getting list', error)
+        res.sendStatus(500);
+    })
+});
+
+// GET ingredients from specific list
+router.get('/list/ingredients/:id', (req, res) => {
+    const queryText = `SELECT "ingredient".ingredient_name from "ingredient" 
+    JOIN "list" ON "ingredient".list_id = "list".id WHERE "list".id = $1`;
+    pool.query(queryText, [req.params.id]).then(result => {
+        console.log('getting ingredients for specific list', result.rows);
+        res.send(result.rows);
+    }).catch(error => {
+        console.log('error with getting ingredients from specific list', error);
         res.sendStatus(500);
     })
 });
@@ -192,5 +185,31 @@ router.delete('/:id', (req, res) => {
 })
 
 //!! END DELETE REQUESTS !!//
+
+
+
+
+
+// POST new list and tie into ingredients
+// router.post('/list', (req, res) => {
+//     const queryList = `INSERT INTO "list" ("list_name")
+//     VALUES ($1) RETURNING "list".id;`;
+//     const queryIngredient = `INSERT INTO "ingredient" ("list_id") VALUES ($1);`;
+//     pool.query(queryList, [req.body.listName])
+//         .then(result => {
+//             let [one] = result.rows
+//             pool.query(queryIngredient, [one.id])
+//                 .then(result => {
+//                     console.log('posting into list and ingredient', req.body);
+//                     res.sendStatus(200);
+//                 }).catch(error => {
+//                     console.log('error with posting to list/ingredient', error)
+//                     res.sendStatus(500);
+//                 });
+//         }).catch(error => {
+//             console.log(error);
+//             res.sendStatus(500);
+//         })
+// });
 
 module.exports = router;

@@ -20,11 +20,11 @@ class MealDetails extends Component {
 
   componentDidUpdate(preProps) {
     if(this.props.reduxState.singleMealReducer != preProps.reduxState.singleMealReducer){
-      this.setEventToEdit();
+      this.setMealToEdit();
     }
   }
 
-  setEventToEdit = () => {
+  setMealToEdit = () => {
     this.props.reduxState.singleMealReducer.forEach(meal => {
       this.setState({
         mealChange: {

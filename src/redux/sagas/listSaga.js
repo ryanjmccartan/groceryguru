@@ -42,6 +42,25 @@ function* getList(){
     }
 }
 
+function* getIngredientsByID(action) {
+    try{
+        const response = yield axios.get('/meal/list/ingredients/' + action.payload);
+        yield put({type: 'SET_SPECIFIC_INGREDIENTS', payload: response.data});
+        console.log('list ingredients', response.data);
+    }catch(error) {
+        console.log('error with getting list ingredients', error)
+    }
+}; 
+
+function* listSaga() {
+    yield takeEvery('POST_LIST', postList)
+    yield takeEvery('GET_LIST', getList)
+    yield takeEvery('GET_LIST_BY_ID', getListByID)
+    yield takeEvery('POST_INGREDIENTS_FROM_LIST', postIngredientsFromList)
+    yield takeEvery('GET_INGREDIENTS_BY_ID', getIngredientsByID)
+    // yield takeEvery("POST_MEAL_ID", postMealID)
+}
+
 // function* postMealID(action){
 //     try{
 
@@ -50,13 +69,5 @@ function* getList(){
 //         console.log(err);  
 //     }
 // }
-
-function* listSaga() {
-    yield takeEvery('POST_LIST', postList)
-    yield takeEvery('GET_LIST', getList)
-    yield takeEvery('GET_LIST_BY_ID', getListByID)
-    yield takeEvery('POST_INGREDIENTS_FROM_LIST', postIngredientsFromList)
-    // yield takeEvery("POST_MEAL_ID", postMealID)
-}
 
 export default listSaga;
