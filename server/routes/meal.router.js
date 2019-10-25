@@ -2,6 +2,9 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+
+// POST REQUESTS
+
 // POST meals and ingredients to database
 router.post('/', (req, res) => {
     const queryMeal = `INSERT INTO "meal" ("meal_name", "recipe")
@@ -37,6 +40,20 @@ router.post('/list', (req, res) => {
     })
 })
 
+// POST new ingredients from list
+router.post('/fromlist', (req, res) => {
+    const queryList = `INSERT INTO "ingredient" ("ingredient_name", "list_id")
+    VALUES ($1, $2);`;
+    pool.query(queryList, [req.body.ingredients, req.body.id])
+        .then(result => {
+            console.log('in post request', req.body);
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log('error with post request', error)
+            res.sendStatus(500);
+        });
+});
+
 // POST new list and tie into ingredients
 // router.post('/list', (req, res) => {
 //     const queryList = `INSERT INTO "list" ("list_name")
@@ -58,6 +75,10 @@ router.post('/list', (req, res) => {
 //             res.sendStatus(500);
 //         })
 // });
+
+//!! END POST REQUESTS !!//
+
+// GET REQUESTS //
 
 // GET specific list
 router.get('/list/:id', (req, res) =>{
@@ -126,6 +147,10 @@ router.get('/details/:id', (req, res) =>{
     })
 })
 
+//!! END GET REQUESTS !!//
+
+// PUT REQUESTS //
+
 // PUT request to update ingredients table with list id
 router.put('/:id', (req, res) => {
     const queryText = `UPDATE "ingredient" SET "list_id" = $1 WHERE "id" = $2;`;
@@ -150,6 +175,10 @@ router.put('/', (req, res) => {
     })
 })
 
+//!! END PUT REQUESTS !!//
+
+// DELETE REQUESTS //
+
 // DELETE meal
 router.delete('/:id', (req, res) => {
     const queryMeal = `DELETE FROM "meal" "ingredient" WHERE "id" = $1;`;
@@ -161,5 +190,7 @@ router.delete('/:id', (req, res) => {
         res.sendStatus(500);
     })
 })
+
+//!! END DELETE REQUESTS !!//
 
 module.exports = router;

@@ -28,6 +28,9 @@ handleChange = (event, param) => {
 submitList = () => {
   console.group('looing for listname', this.state.listName);
   this.props.dispatch({type: 'POST_LIST', payload: this.state});
+  this.setState({
+    listName: ''
+  })
 }
 
 viewList = (list) => {
@@ -42,7 +45,7 @@ viewList = (list) => {
         <li onClick={() => this.viewList(list.id)}>{list.list_name}</li>
         </ul>
     })}
-    <input onChange={(event) => this.handleChange(event, 'listName')}/>
+    <input onChange={(event) => this.handleChange(event, 'listName')} placeholder="list name"/>
     <button onClick={this.submitList}>Create List</button>
   </div>
     )
