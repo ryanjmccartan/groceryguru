@@ -63,7 +63,9 @@ class MealDetails extends Component {
 
   addIngredients = (meal) => {
     console.log(meal)
-    this.props.history.push('/meals/addlist/' + meal)
+    this.props.dispatch({type: "POST_MEAL_ID", payload:  meal})
+        this.props.history.push('/meals/addlist')
+
     // alert('Ingredients added to list'); 
   }
 

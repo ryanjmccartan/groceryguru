@@ -24,32 +24,59 @@ router.post('/', (req, res) => {
         })
 });
 
-// POST new list and tie into ingredients
-router.post('/', (req, res) => {
-    const queryList = `INSERT INTO "list" ("list_name")
-    VALUES ($1) RETURNING "list".id;`;
-    const queryIngredient = `INSERT INTO "ingredient" ("list_id") VALUES ($1);`;
-    pool.query(queryList, [req.body.listName])
-        .then(result => {
-            let [one] = result.rows
-            pool.query(queryIngredient, [one.id])
-                .then(reuslt => {
-                    console.log('posting into list and ingredient', req.body);
-                    res.sendStatus(200);
-                }).catch(error => {
-                    console.log('error with posting to list/ingredient', error)
-                    res.sendStatus(500);
-                });
-        }).catch(error => {
-            console.log(error);
-            res.sendStatus(500);
-        })
-});
+// POST new list
+router.post('/list', (req, res) => {
+    const queryText = `INSERT INTO "list" ("list_name")
+    VALUES ($1)`
+    pool.query(queryText, [req.body.listName]).then(result => {
+        console.log('posting list', req.body);
+        res.sendStatus(200);
+    }).catch( error => {
+        console.log('error with posting list', error);
+        res.sendStatus(500);
+    })
+})
 
-// GETs lists
-router.get('/addlist', (req, res) => {
-    console.log('getting list');
+// POST new list and tie into ingredients
+// router.post('/list', (req, res) => {
+//     const queryList = `INSERT INTO "list" ("list_name")
+//     VALUES ($1) RETURNING "list".id;`;
+//     const queryIngredient = `INSERT INTO "ingredient" ("list_id") VALUES ($1);`;
+//     pool.query(queryList, [req.body.listName])
+//         .then(result => {
+//             let [one] = result.rows
+//             pool.query(queryIngredient, [one.id])
+//                 .then(result => {
+//                     console.log('posting into list and ingredient', req.body);
+//                     res.sendStatus(200);
+//                 }).catch(error => {
+//                     console.log('error with posting to list/ingredient', error)
+//                     res.sendStatus(500);
+//                 });
+//         }).catch(error => {
+//             console.log(error);
+//             res.sendStatus(500);
+//         })
+// });
+
+// GET specific list
+router.get('/list/:id', (req, res) =>{
+    const queryText = `SELECT * FROM "list" WHERE "id" = $1;`;
+    pool.query(queryText, [req.params.id]).then(result => {
+        res.send(result.rows)
+        console.log(result.rows)
+    }).catch(error => {
+        console.log('error with getting specific list', error);
+        res.sendStatus(500);
+    })
+})
+
+// GETs ingredients from list
+router.get('/list', (req, res) => {
+    console.log('getting lists');
+    // update queryText to get all list data
     const queryText = `SELECT * FROM "list";`;
+    // const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient" JOIN "list" ON "list".id = "ingredient".list_id;`;
     pool.query(queryText).then(result => {
         console.log('here are the lists', result.rows);
         res.send(result.rows);
@@ -97,6 +124,12 @@ router.get('/details/:id', (req, res) =>{
         console.log('error with getting specific meal', error);
         res.sendStatus(500);
     })
+})
+
+// PUT request to update ingredients table with list id
+router.put('/:id', (req, res) => {
+    const queryText = `UPDATE "ingredient" SET "list_id" = $1 WHERE "id" = $2;`;
+    pool.query(queryText, [req.params])
 })
 
 // PUT request to update meal

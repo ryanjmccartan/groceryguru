@@ -5,6 +5,9 @@ import user from './userReducer';
 import mealReducer from './mealReducer';
 import singleMealReducer from './singleMealReducer';
 import ingredientReducer from './ingredientReducer';
+import listReducer from './listReducer';
+import mealIdReducer from './mealIdReducer';
+import singleListReducer from './singleListReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +21,10 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   mealReducer, // will store meals created
   singleMealReducer, // reducer for single meal
-  ingredientReducer // reducer for storing ingredients
+  ingredientReducer, // reducer for storing ingredients
+  listReducer, // reducer for storing lists
+  mealIdReducer,
+  singleListReducer // reducer for grabbing single list
 });
 
 export default rootReducer;

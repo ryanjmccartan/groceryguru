@@ -20,6 +20,7 @@ import Meals from '../Meals/Meals';
 import MealDetails from '../MealDetails/MealDetails';
 import AddMeal from '../AddMeal/AddMeal';
 import AddList from '../AddList/AddList';
+import ViewList from '../ViewList/ViewList';
 
 import './App.css';
 
@@ -52,6 +53,13 @@ class App extends Component {
               path="/home"
               component={GroceryList}
             />
+
+            <ProtectedRoute
+              exact
+              path="/home/:id"
+              component={ViewList}
+            />
+
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the meals page instead. */}
             <ProtectedRoute
@@ -74,7 +82,7 @@ class App extends Component {
 
             <ProtectedRoute
             exact
-            path='/meals/addlist/:id'
+            path='/meals/addlist'
             component={AddList}
             />
 

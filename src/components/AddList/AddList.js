@@ -12,8 +12,8 @@ class AddList extends Component{
 
 
     componentDidMount() {
-        this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id})
-        this.setIngredients();
+        // this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id})
+        // this.setIngredients();
     }
 
     // componentDidUpdate(preProps) {
@@ -47,14 +47,20 @@ class AddList extends Component{
         })
     }
 
+    addIngredients = () => {
+        this.props.dispatch({type:'POST_LIST', payload: this.state.listName});
+    }
+
 render() {
     return(
         <div>
         <p>Add List</p>
-        {JSON.stringify(this.props.reduxState.ingredientReducer)};
-        <form>
+        {JSON.stringify(this.props.reduxState.mealIdReducer)};
+        <form onSubmit={this.addIngredients}>
             <input onChange={(event) => this.handleChange(event, 'listName')} placeholder='list name'/>
             <input value={this.state.list.ingredients}/>
+            {/* <select> */}
+                {/* <option value = {this.props.reduxState.ingredientReducer}>ingredient</option>List</select> */}
             <br/>
             <button type='submit'>Add Ingredients</button>
         </form>
