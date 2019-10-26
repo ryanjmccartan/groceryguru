@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
     pool.query(queryMeal, [req.body.name, req.body.recipe])
         .then((result) =>{
             let [one] = result.rows
-            pool.query(queryIngredient, [req.body.singleIngredient, one.id])
+            pool.query(queryIngredient, [req.body.ingredients, one.id])
                 .then(result => {
                     console.log('in post request', req.body);
                     res.sendStatus(200);

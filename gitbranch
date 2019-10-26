@@ -57,7 +57,6 @@ addMeal = (event) => {
 
     {/* <form onSubmit={this.addMeal}> */}
       <input type='text' value={this.state.newMeal.name} onChange={(event) => {this.handleChange(event, 'name')}} placeholder="name of meal"/>
-      <input type='text' value={this.state.newMeal.image} onChange={(event) => {this.handleChange(event, 'image')}} placeholder="image url"/>
       {/* <input type='text' value={this.state.newMeal.singleIngredient} onChange={(event) => {this.handleChange(event, 'singleIngredient')}} placeholder="ingredient"/> */}
 
       {this.state.newMeal.ingredients.map((ingredient, index) => {

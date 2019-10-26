@@ -11,7 +11,7 @@ class MealDetails extends Component {
       newRecipe: '',
       id: this.props.match.params.id
     },
-    list_id: ''
+    list_id: 1
   }
 
   componentDidMount() {
@@ -56,6 +56,12 @@ class MealDetails extends Component {
     })
   }
 
+  handleListChange = (event) => {
+    this.setState({
+      list_id: event.target.value
+    })
+  }
+
   updateMeal = (event) => {
     event.preventDefault();
     console.log('in updateMeal', this.state.mealChange);
@@ -82,7 +88,7 @@ class MealDetails extends Component {
     console.log(item);
     let newObject = {
       ingredients: item.ingredient_name,
-      id: 3,
+      id: this.state.list_id,
     }
     this.props.dispatch({type: 'POST_INGREDIENTS_FROM_MEAL', payload: newObject});
   }
@@ -94,6 +100,7 @@ class MealDetails extends Component {
           if(meal.id == this.props.match.params.id){ 
             // || meal.id == this.props.match.params.id){           
             return <div key={meal.id}>
+              {/* <img src={meal.image}/> */}
              <p>Meal name: {meal.meal_name}</p>
              <p>Recipe: {meal.recipe}</p>
              </div>
@@ -109,10 +116,11 @@ class MealDetails extends Component {
          }
        )} 
 
-        <select>{this.props.reduxState.listReducer.map(list => {
-            return  <option key={list.id} value={list.list_name}>{list.list_name}</option>      
+        <select value={this.state.list_id} onChange={this.handleListChange}>{this.props.reduxState.listReducer.map(list => {
+            return  <option key={list.id} value={list.id}>{list.list_name}</option>      
         })}
         </select>
+
       {/* <button onClick={() => this.addIngredients(this.props.match.params.id)}>Add Ingredients to List</button> */}
        <form onSubmit={this.updateMeal}>
        <input defaultValue={this.state.mealChange.newName} onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
