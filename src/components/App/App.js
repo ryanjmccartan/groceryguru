@@ -82,7 +82,7 @@ class App extends Component {
 
             <ProtectedRoute
             exact
-            path='/meals/addlist'
+            path='/meals/addlist/:id'
             component={AddList}
             />
 

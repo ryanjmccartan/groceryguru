@@ -54,6 +54,19 @@ router.post('/fromlist', (req, res) => {
         });
 });
 
+router.post('/fromMeal', (req, res) => {
+    const queryList = `INSERT INTO "ingredient" ("ingredient_name", "list_id")
+    VALUES ($1, $2);`;
+    pool.query(queryList, [req.body.ingredients, req.body.id])
+        .then(result => {
+            console.log('in post request', req.body);
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log('error with post request', error)
+            res.sendStatus(500);
+        });
+});
+
 
 
 //!! END POST REQUESTS !!//

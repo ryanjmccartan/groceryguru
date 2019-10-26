@@ -13,9 +13,7 @@ state = {
   ingredients: []
 }
 
-// addIngredient = (event) => {
-//   this.state.newMeal.ingredient.push(event.target.value);
-// }
+
 
 handleChange = (event, input) => {
   event.preventDefault();
@@ -34,7 +32,12 @@ addMeal = (event) => {
     this.props.history.push('/meals');
   }
 
-
+  addIngredient = (event) => {
+    console.log('this is addIngredient');
+    this.setState({
+      ingredients: [...this.state.ingredients, '']
+    });
+  }
 
   render() {
     return(
@@ -43,13 +46,19 @@ addMeal = (event) => {
       Add meal
     </p>
 
-    <form onSubmit={this.addMeal}>
+    {/* <form onSubmit={this.addMeal}> */}
       <input type='text' value={this.state.newMeal.name} onChange={(event) => {this.handleChange(event, 'name')}} placeholder="name of meal"/>
       <input type='text' value={this.state.newMeal.singleIngredient} onChange={(event) => {this.handleChange(event, 'singleIngredient')}} placeholder="ingredient"/>
-      {/* <button onClick={() => this.addIngredient}>Add Ingredient</button> */}
+
+      {this.state.ingredients.map((ingredient, index) => {
+        return <div key={index}>
+        <input value={ingredient}/>
+        </div>
+      })}
+      <button onClick={(event) => this.addIngredient(event)}>Add Ingredient</button>
       <input type='text' value={this.state.newMeal.recipe} onChange={(event) => {this.handleChange(event, 'recipe')}} placeholder="recipe instructions"/>
       <input type='submit' placeholder='Add Meal'/>
-    </form>
+    {/* </form> */}
    
   </div>
     )

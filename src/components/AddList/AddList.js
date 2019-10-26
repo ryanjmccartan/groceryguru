@@ -12,16 +12,17 @@ class AddList extends Component{
 
 
     componentDidMount() {
-        // this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id})
-        // this.setIngredients();
+        this.props.dispatch({type: 'GET_INGREDIENT', payload: this.props.match.params.id})
+        this.props.dispatch({type: 'GET_LIST'});
+        this.setIngredients();
     }
 
-    // componentDidUpdate(preProps) {
-    //     if(this.props.reduxState.ingredientReducer.length !== preProps.reduxState.ingredientReducer.length){
-    //         // this.setEventToEdit();
-    //         this.setIngredients();
-    //     }
-    // }
+    componentDidUpdate(preProps) {
+        if(this.props.reduxState.ingredientReducer.length !== preProps.reduxState.ingredientReducer.length){
+            // this.setEventToEdit();
+            this.setIngredients();
+        }
+    }
 
     setIngredients = () => {
         this.props.reduxState.ingredientReducer.forEach(ingredient => {
@@ -56,6 +57,12 @@ render() {
         <div>
         <p>Add List</p>
         {JSON.stringify(this.props.reduxState.mealIdReducer)};
+        {JSON.stringify(this.props.reduxState.listReducer)};
+
+        <select>{this.props.reduxState.listReducer.map(list => {
+            return  <option key={list.id}>{list.list_name}</option>      
+        })}
+        </select>
         <form onSubmit={this.addIngredients}>
             <input onChange={(event) => this.handleChange(event, 'listName')} placeholder='list name'/>
             <input value={this.state.list.ingredients}/>
