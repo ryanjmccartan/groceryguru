@@ -21,12 +21,10 @@ router.post('/', (req, res) => {
                         res.sendStatus(200);
                     }).catch(error => {
                         console.log('error with post request', error)
-                        res.sendStatus(500);
                     });
                 }
         }).catch((err)=>{
-            console.log(err);
-            res.sendStatus(500);
+            console.log('error with post request', err);
         })
 });
 

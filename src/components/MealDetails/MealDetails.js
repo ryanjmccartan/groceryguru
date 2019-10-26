@@ -115,12 +115,12 @@ class MealDetails extends Component {
         </div>
          }
        )} 
-
+      <div className='list select'>
         <select value={this.state.list_id} onChange={this.handleListChange}>{this.props.reduxState.listReducer.map(list => {
             return  <option key={list.id} value={list.id}>{list.list_name}</option>      
         })}
         </select>
-
+</div>
       {/* <button onClick={() => this.addIngredients(this.props.match.params.id)}>Add Ingredients to List</button> */}
        <form onSubmit={this.updateMeal}>
        <input defaultValue={this.state.mealChange.newName} onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
