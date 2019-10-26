@@ -9,18 +9,21 @@ const router = express.Router();
 router.post('/', (req, res) => {
     const queryMeal = `INSERT INTO "meal" ("meal_name", "recipe")
     VALUES ($1, $2) RETURNING "meal".id;`;
-    const queryIngredient = `INSERT INTO "ingredient" ("ingredient_name", "meal_id") VALUES ($1,$2);`;
     pool.query(queryMeal, [req.body.name, req.body.recipe])
         .then((result) =>{
-            let [one] = result.rows
-            pool.query(queryIngredient, [req.body.ingredients, one.id])
-                .then(result => {
-                    console.log('in post request', req.body);
-                    res.sendStatus(200);
-                }).catch(error => {
-                    console.log('error with post request', error)
-                    res.sendStatus(500);
-                });
+            let [one] = result.rows;
+            const queryIngredient = `INSERT INTO "ingredient" ("ingredient_name", "meal_id") VALUES ($1,$2);`;
+            for(let i = 0; i < req.body.ingredients.length; i++) {
+                console.log(i);
+                pool.query(queryIngredient, [req.body.ingredients[i], one.id])
+                    .then(result => {
+                        console.log('in post request', req.body);
+                        res.sendStatus(200);
+                    }).catch(error => {
+                        console.log('error with post request', error)
+                        res.sendStatus(500);
+                    });
+                }
         }).catch((err)=>{
             console.log(err);
             res.sendStatus(500);

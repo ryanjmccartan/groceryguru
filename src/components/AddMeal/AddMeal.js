@@ -7,11 +7,10 @@ class AddMeal extends Component {
 state = {
   newMeal: {
     name: '',
-    image: '',
+    // image: '',
     recipe: '',
-    ingredients: [],
-  },
-  
+    ingredients: []
+  }
 }
 
 
