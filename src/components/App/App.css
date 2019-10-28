@@ -23,7 +23,7 @@ input {
 }
 
 .log-in, .log-out, .register {
-  background-color: lightgreen;
+  background-color: green;
   border-radius: 4px;
   color: #f8f8f8;
   min-height: 50px;

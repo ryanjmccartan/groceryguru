@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './MealDetails.css';
+import swal from 'sweetalert';
 
 
 
@@ -80,10 +81,28 @@ class MealDetails extends Component {
   }
 
   deleteMeal = (meal) => {
-    this.props.dispatch({type: 'DELETE_MEAL', payload: meal});
-    alert('Meal has been deleted');
-    this.props.history.push('/meals');
+    swal({
+      title: "Do you want to delete this meal?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.props.dispatch({type: 'DELETE_MEAL', payload: meal});
+        swal("This meal has been removed!", {
+          icon: "success",
+        });
+        this.props.history.push('/meals');
+      } else {
+        swal("Your meal is safe and sound!");
+      }
+    });
   }
+
+  
+
+
 
   addToList = (event, item) => {
     console.log(item);
@@ -123,14 +142,15 @@ class MealDetails extends Component {
         })}
         </select>
 </div>
+<button onClick={() => this.deleteMeal(this.state.mealChange.id)}>Delete Meal</button>
+
       {/* <button onClick={() => this.addIngredients(this.props.match.params.id)}>Add Ingredients to List</button> */}
-       <form onSubmit={this.updateMeal}>
+       {/* <form onSubmit={this.updateMeal}>
        <input defaultValue={this.state.mealChange.newName} onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
        <input defaultValue={this.state.mealChange.newRecipe}  onChange={(event) => this.handleChange(event, 'newRecipe')} placeholder='change recipe'/>
        <button type='submit'>Update Meal</button>
        <br/>
-       <button onClick={() => this.deleteMeal(this.state.mealChange.id)}>Delete Meal</button>
-       </form>  
+       </form>   */}
       </div>
     )
   }
