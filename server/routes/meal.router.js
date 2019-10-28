@@ -7,10 +7,11 @@ const router = express.Router();
 
 // POST meals and ingredients to database
 router.post('/', (req, res) => {
-    const queryMeal = `INSERT INTO "meal" ("meal_name", "recipe")
-    VALUES ($1, $2) RETURNING "meal".id;`;
-    pool.query(queryMeal, [req.body.name, req.body.recipe])
+    const queryMeal = `INSERT INTO "meal" ("meal_name", "recipe", "image")
+    VALUES ($1, $2, $3) RETURNING "meal".id;`;
+    pool.query(queryMeal, [req.body.name, req.body.recipe, req.body.image])
         .then((result) =>{
+            console.log('looking for name', result.rows)
             let [one] = result.rows;
             const queryIngredient = `INSERT INTO "ingredient" ("ingredient_name", "meal_id") VALUES ($1,$2);`;
             for(let i = 0; i < req.body.ingredients.length; i++) {

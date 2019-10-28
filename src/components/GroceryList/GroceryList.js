@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import swal from 'sweetalert';
+
 
 
 class GroceryList extends Component {
 
-componentDidMount() {
-// this.props.dispatch({type:'GET_INGREDIENT'})
-this.props.dispatch({type:'GET_LIST'});
-}
 
 state = {
   listName: ''
 }
+
+componentDidMount() {
+  // this.props.dispatch({type:'GET_INGREDIENT'})
+  this.props.dispatch({type:'GET_LIST'});
+  }
 
 // state = {
 //   ingredients: [
@@ -28,6 +31,10 @@ handleChange = (event, param) => {
 submitList = () => {
   console.group('looing for listname', this.state.listName);
   this.props.dispatch({type: 'POST_LIST', payload: this.state});
+  swal({
+    title: 'You created a list!',
+    icon: 'success'
+  });
   this.setState({
     listName: ''
   })
@@ -45,7 +52,7 @@ viewList = (list) => {
         <li onClick={() => this.viewList(list.id)}>{list.list_name}</li>
         </ul>
     })}
-    <input onChange={(event) => this.handleChange(event, 'listName')} placeholder="list name"/>
+    <input value={this.state.listName} onChange={(event) => this.handleChange(event, 'listName')} placeholder="list name"/>
     <button onClick={this.submitList}>Create List</button>
   </div>
     )

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import './MealDetails.css';
 
 
 
@@ -91,6 +92,7 @@ class MealDetails extends Component {
       id: this.state.list_id,
     }
     this.props.dispatch({type: 'POST_INGREDIENTS_FROM_MEAL', payload: newObject});
+    alert('Ingredients added to list'); 
   }
 
   render() {
@@ -99,8 +101,8 @@ class MealDetails extends Component {
        {this.props.reduxState.mealReducer.map(meal => {
           if(meal.id == this.props.match.params.id){ 
             // || meal.id == this.props.match.params.id){           
-            return <div key={meal.id}>
-              {/* <img src={meal.image}/> */}
+            return <div className='image' key={meal.id}>
+              <img src={meal.image}/>
              <p>Meal name: {meal.meal_name}</p>
              <p>Recipe: {meal.recipe}</p>
              </div>
