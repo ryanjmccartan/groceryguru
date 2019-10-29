@@ -12,15 +12,8 @@ state = {
 }
 
 componentDidMount() {
-  // this.props.dispatch({type:'GET_INGREDIENT'})
   this.props.dispatch({type:'GET_LIST'});
   }
-
-// state = {
-//   ingredients: [
-//     name:
-//   ] this.props.dispatch({type:'GET_INGREDIENT'})
-// }
 
 handleChange = (event, param) => {
   this.setState({

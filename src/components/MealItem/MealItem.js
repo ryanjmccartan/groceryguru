@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import './MealItem.css';
 
-class MealList extends Component {
+class MealItem extends Component {
 
 
 // editMeal = (id) => {
@@ -13,7 +14,7 @@ class MealList extends Component {
     render() {
         return(
             <div className="mealList">
-            <button onClick={() => this.props.mealDetails(this.props.meal.id)}>{this.props.meal.meal_name}</button>
+            <img className="mealImage" onClick={() => this.props.mealDetails(this.props.meal.id)} src={this.props.meal.image}/>
             {/* <button onClick={() => this.editMeal(this.props.meal.id)}>Edit Meal</button> */}
         </div>
         )}
@@ -23,4 +24,4 @@ const putReduxOnProps = (reduxState) => ({
     reduxState
   })
 
-export default connect(putReduxOnProps)(MealList);
+export default connect(putReduxOnProps)(MealItem);

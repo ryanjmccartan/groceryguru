@@ -100,10 +100,6 @@ class MealDetails extends Component {
     });
   }
 
-  
-
-
-
   addToList = (event, item) => {
     console.log(item);
     let newObject = {
@@ -119,7 +115,6 @@ class MealDetails extends Component {
       <div>
        {this.props.reduxState.mealReducer.map(meal => {
           if(meal.id == this.props.match.params.id){ 
-            // || meal.id == this.props.match.params.id){           
             return <div className='image' key={meal.id}>
               <img src={meal.image}/>
              <p>Meal name: {meal.meal_name}</p>
@@ -137,7 +132,7 @@ class MealDetails extends Component {
          }
        )} 
       <div className='list select'>
-        <select value={this.state.list_id} onChange={this.handleListChange}>{this.props.reduxState.listReducer.map(list => {
+        <select class="browser-default" value={this.state.list_id} onChange={this.handleListChange}>{this.props.reduxState.listReducer.map(list => {
             return  <option key={list.id} value={list.id}>{list.list_name}</option>      
         })}
         </select>
@@ -145,12 +140,13 @@ class MealDetails extends Component {
 <button onClick={() => this.deleteMeal(this.state.mealChange.id)}>Delete Meal</button>
 
       {/* <button onClick={() => this.addIngredients(this.props.match.params.id)}>Add Ingredients to List</button> */}
-       {/* <form onSubmit={this.updateMeal}>
+       <form onSubmit={this.updateMeal}>
+         Edit Meal
        <input defaultValue={this.state.mealChange.newName} onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
        <input defaultValue={this.state.mealChange.newRecipe}  onChange={(event) => this.handleChange(event, 'newRecipe')} placeholder='change recipe'/>
        <button type='submit'>Update Meal</button>
        <br/>
-       </form>   */}
+       </form>  
       </div>
     )
   }

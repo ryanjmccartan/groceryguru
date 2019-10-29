@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import MealItem from '../MealItem/MeaItem';
-
+import MealItem from '../MealItem/MealItem';
 
 class Meals extends Component {
 
@@ -26,13 +25,14 @@ mealDetails = (id) => {
   render() {
     return(
       <div>
-        <p>Meals</p>
+        <h4>My Meals</h4>
         <br/>
-        {/* {JSON.stringify(this.props.reduxState.mealReducer)} */}
         <br/>
+        <div className="mealItem">
         {this.props.reduxState.mealReducer.map((meal) => {
                   return <MealItem key={meal.id} meal={meal} mealDetails={this.mealDetails}/>
               })}
+              </div>
               <br/>
         <button onClick={this.addMealRoute}>Add Meal</button>
 
