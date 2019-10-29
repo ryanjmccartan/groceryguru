@@ -38,7 +38,7 @@ viewList = (list) => {
 
   render() {
     return(
-      <div>
+      <div className="list">
     {this.props.reduxState.listReducer.map(list => {
       return <ul key={list.id}>
         <li onClick={() => this.viewList(list.id)}>{list.list_name}</li>
