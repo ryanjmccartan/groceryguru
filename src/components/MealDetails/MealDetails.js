@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './MealDetails.css';
 import swal from 'sweetalert';
+import './MealDetails.css';
 
 
 
@@ -107,7 +108,10 @@ class MealDetails extends Component {
       id: this.state.list_id,
     }
     this.props.dispatch({type: 'POST_INGREDIENTS_FROM_MEAL', payload: newObject});
-    alert('Ingredients added to list'); 
+    swal({
+      title: 'Ingredient added.',
+      icon: 'success'
+    });; 
   }
 
   render() {
@@ -117,36 +121,39 @@ class MealDetails extends Component {
           if(meal.id == this.props.match.params.id){ 
             return <div className='image' key={meal.id}>
               <img src={meal.image}/>
-             <p>Meal name: {meal.meal_name}</p>
-             <p>Recipe: {meal.recipe}</p>
+             <h3>{meal.meal_name}</h3>
+             <br/>
+             <h5>Recipe:</h5> {meal.recipe}
              </div>
          }
        })}
-       Ingredients:
+       <h5>Ingredients:</h5>
        {this.props.reduxState.ingredientReducer.map(ingredient => {
-        return <div key={ingredient.id}>
+        return <div className="ingredients" key={ingredient.id}>
         {ingredient.ingredient_name}
-        <button onClick={(e) => this.addToList(e, ingredient)}>Add to List</button>
+          <button className="addButton" onClick={(e) => this.addToList(e, ingredient)}>Add to List</button>
         <br/>
         </div>
          }
-       )} 
+       )}
+       <br/> 
       <div className='list select'>
-        <select class="browser-default" value={this.state.list_id} onChange={this.handleListChange}>{this.props.reduxState.listReducer.map(list => {
+        <select className="select" class="browser-default" value={this.state.list_id} onChange={this.handleListChange}>{this.props.reduxState.listReducer.map(list => {
             return  <option key={list.id} value={list.id}>{list.list_name}</option>      
         })}
         </select>
 </div>
+<br/>
 <button onClick={() => this.deleteMeal(this.state.mealChange.id)}>Delete Meal</button>
 
       {/* <button onClick={() => this.addIngredients(this.props.match.params.id)}>Add Ingredients to List</button> */}
-       <form onSubmit={this.updateMeal}>
+       {/* <form onSubmit={this.updateMeal}>
          Edit Meal
        <input defaultValue={this.state.mealChange.newName} onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>
        <input defaultValue={this.state.mealChange.newRecipe}  onChange={(event) => this.handleChange(event, 'newRecipe')} placeholder='change recipe'/>
        <button type='submit'>Update Meal</button>
        <br/>
-       </form>  
+       </form>   */}
       </div>
     )
   }

@@ -16,7 +16,6 @@ state = {
 }
 
 
-
 handleChange = (event, input) => {
   event.preventDefault();
   this.setState({
@@ -28,7 +27,6 @@ handleChange = (event, input) => {
 }
 
 fillState = () => {
-  console.log('in fillState');
   this.setState({
     newMeal: {
       name: 'Enchiladas',
@@ -81,15 +79,15 @@ addMeal = (event) => {
   render() {
     return(
       <div>
-    <p onClick={this.fillState}>
+    <h3 onClick={this.fillState}>
       Add meal
-    </p>
-
+    </h3>
+      <h4>Name:</h4>
       <input type='text' value={this.state.newMeal.name} onChange={(event) => {this.handleChange(event, 'name')}} placeholder="name of meal"/>
       <br/>
       <input type='text' value={this.state.newMeal.image} onChange={(event) => {this.handleChange(event, 'image')}} placeholder="image url"/>
       <br/>
-
+      <h4>Ingredients to add:</h4>
       {this.state.newMeal.ingredients.map((ingredient, index) => {
         return <div key={index}>
         <input value={ingredient} onChange={(event) => {this.handleIngredientChange(event, index)}} placeholder='ingredient' />
@@ -98,6 +96,7 @@ addMeal = (event) => {
       <button onClick={(event) => this.addIngredient(event)}>Add Ingredient</button>
       <br/>
       <br/>
+      <h4>Recipe:</h4>
       <input type='text' value={this.state.newMeal.recipe} onChange={(event) => {this.handleChange(event, 'recipe')}} placeholder="recipe instructions"/>
       <br/>
       <button onClick={this.addMeal} type='submit' placeholder='Add Meal'>Submit</button>

@@ -28,13 +28,14 @@ mealDetails = (id) => {
         <h4>My Meals</h4>
         <br/>
         <br/>
+        <button onClick={this.addMealRoute}>Add Meal</button>
+
         <div className="mealItem">
         {this.props.reduxState.mealReducer.map((meal) => {
                   return <MealItem key={meal.id} meal={meal} mealDetails={this.mealDetails}/>
               })}
               </div>
               <br/>
-        <button onClick={this.addMealRoute}>Add Meal</button>
 
       </div>
     )

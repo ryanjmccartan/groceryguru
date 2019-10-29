@@ -81,9 +81,9 @@ class App extends Component {
             />
 
             <ProtectedRoute
-            exact
-            path='/meals/addlist/:id'
-            component={AddList}
+              exact
+              path='/meals/addlist/:id'
+              component={AddList}
             />
 
             <ProtectedRoute

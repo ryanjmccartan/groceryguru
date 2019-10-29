@@ -1,14 +1,21 @@
-/* .mealList {
+.mealList {
     display: flex;
-    align-items: stretch;
-    height: 300px;
+    flex-direction: row;
+    margin: 10px;
     flex-wrap: wrap;
+    align-items: stretch;
+}
+    /* align-items: stretch;
+    height: 300px;
+
+
+/* .mealList:hover {
+    margin-top: -2px;
 } */
 
 .mealImage {
-    height: 150px;
+    height: 200px;
     width: 250px;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
+    align-self: center;
+    /* justify-content: center; */
 }
