@@ -40,7 +40,7 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <form onSubmit={this.login}>
+        {/* <form onSubmit={this.login}> */}
           <h1>Login</h1>
           <div>
             <label htmlFor="username">
@@ -65,14 +65,18 @@ class LoginPage extends Component {
             </label>
           </div>
           <div>
-            <input
-              className="log-in"
-              type="submit"
-              name="submit"
-              value="Log In"
-            />
+            <button
+            onClick={this.login}
+            className="log-in"
+            type="submit"
+            name="submit"
+            >
+              
+              Log In
+              </button>
+            
           </div>
-        </form>
+        {/* </form> */}
         <center>
           <button
             type="button"

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import swal from 'sweetalert';
 
 class ViewList extends Component {
 
@@ -26,9 +27,44 @@ state = {
         })
     }
 
-    removeItem = (item) => {
+    deleteList = (list) => {
+        swal({
+            title: "Do you want to delete this list?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              this.props.dispatch({type: 'DELETE_LIST', payload: list});
+              swal("This list has been deleted!", {
+                icon: "success",
+              });
+              this.props.history.push('/home');
+            } else {
+              swal("Your list is safe and sound!");
+            }
+          });
+        } 
 
-    }
+    deleteIngredient = (ingredient) => {
+        swal({
+            title: "Do you want to remove this ingredient from the list?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                this.props.dispatch({type: 'DELETE_INGREDIENT', payload: ingredient});
+                swal("This ingredient has been removed!", {
+                icon: "success",
+                });
+            } else {
+                swal("Your ingredient is okay!");
+            }
+            });
+        } 
 
   render() {
     return(
@@ -42,10 +78,14 @@ state = {
             <button onClick={() => this.addIngredients()}>Add Ingredients</button>
             {this.props.reduxState.ingredientReducer.map(ingredient => {
                 return <ul key={ingredient.id}>
-                    <li>{ingredient.ingredient_name}
-                    <button onClick={this.removeItem}>Remove Item</button></li>
+                    <li>{ingredient.ingredient_name}</li>
+                    {/* <button onClick={() => this.deleteIngredient(ingredient.id)}>Remove Item</button> */}
                 </ul>
             })}
+            <br/>
+            <br/>
+            <br/>
+            <button onClick={() => this.deleteList(this.state.id)}>Delete List</button>   
         </div>
     )
   }

@@ -42,13 +42,6 @@ class MealDetails extends Component {
     })
   }
 
-  // getIngredient = () => {
-  //   console.log('this is params id', this.props.match.params.id);
-  //   ;
-  // }
-
-
-
   handleChange = (event, input) => {
     event.preventDefault();
     this.setState({
@@ -71,14 +64,6 @@ class MealDetails extends Component {
     this.props.dispatch({type: 'EDIT_MEAL', payload: this.state.mealChange});
     alert('Meal has been updated');
     this.props.history.push('/meals');
-  }
-
-  addIngredients = (meal) => {
-    console.log(meal)
-    this.props.dispatch({type: "POST_MEAL_ID", payload:  meal})
-        this.props.history.push('/meals/addlist/' + meal)
-
-    // alert('Ingredients added to list'); 
   }
 
   deleteMeal = (meal) => {
@@ -137,6 +122,7 @@ class MealDetails extends Component {
          }
        )}
        <br/> 
+       <h5>Choose a list:</h5>
       <div className='list select'>
         <select className="select" class="browser-default" value={this.state.list_id} onChange={this.handleListChange}>{this.props.reduxState.listReducer.map(list => {
             return  <option key={list.id} value={list.id}>{list.list_name}</option>      
@@ -146,7 +132,6 @@ class MealDetails extends Component {
 <br/>
 <button onClick={() => this.deleteMeal(this.state.mealChange.id)}>Delete Meal</button>
 
-      {/* <button onClick={() => this.addIngredients(this.props.match.params.id)}>Add Ingredients to List</button> */}
        {/* <form onSubmit={this.updateMeal}>
          Edit Meal
        <input defaultValue={this.state.mealChange.newName} onChange={(event) => this.handleChange(event, 'newName')} placeholder='change name'/>

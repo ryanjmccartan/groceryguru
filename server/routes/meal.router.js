@@ -56,6 +56,7 @@ router.post('/fromlist', (req, res) => {
         });
 });
 
+// POST ingredients to list from meal
 router.post('/fromMeal', (req, res) => {
     const queryList = `INSERT INTO "ingredient" ("ingredient_name", "list_id")
     VALUES ($1, $2);`;
@@ -68,8 +69,6 @@ router.post('/fromMeal', (req, res) => {
             res.sendStatus(500);
         });
 });
-
-
 
 //!! END POST REQUESTS !!//
 
@@ -90,7 +89,6 @@ router.get('/list/:id', (req, res) =>{
 // GETs lists
 router.get('/list', (req, res) => {
     console.log('getting lists');
-    // update queryText to get all list data
     const queryText = `SELECT * FROM "list";`;
     // const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient" JOIN "list" ON "list".id = "ingredient".list_id;`;
     pool.query(queryText).then(result => {
@@ -115,13 +113,11 @@ router.get('/list/ingredients/:id', (req, res) => {
     })
 });
 
-// GETs meals and ingredients
+// GETs meals
 router.get('/', (req, res) => {
     console.log('getting meals');
     const queryText = `SELECT * FROM "meal";`;
-    // JOIN "ingredient" ON "meal".id = "ingredient".meal_id;`;
     pool.query(queryText).then(result => {
-        // console.log(result.rows);
         res.send(result.rows)
     }).catch(error => {
         console.log('error with getting meals', error)
@@ -199,32 +195,29 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+// DELETE list
+router.delete('/list/:id', (req, res) => {
+    const queryText = 'DELETE FROM "list" WHERE "id" = $1';
+    pool.query(queryText, [req.params.id]).then(() => {
+        res.sendStatus(200);
+    }).catch(error => {
+        console.log('error with deleting list', error);
+        res.sendStatus(500);
+    })
+})
+
+// DELETE INGREDIENT FROM LIST
+router.delete('/list/ingredient/:id', (req, res) => {
+    const queryText = 'DELETE FROM "ingredient" WHERE "id" = $1';
+    pool.query(queryText, [req.params.id]).then(() => {
+        res.sendStatus(200);
+    }).catch(error => {
+        console.log('error with deleting ingredient from list', error);
+        res.sendStatus(500);
+    })
+})
+
 //!! END DELETE REQUESTS !!//
 
-
-
-
-
-// POST new list and tie into ingredients
-// router.post('/list', (req, res) => {
-//     const queryList = `INSERT INTO "list" ("list_name")
-//     VALUES ($1) RETURNING "list".id;`;
-//     const queryIngredient = `INSERT INTO "ingredient" ("list_id") VALUES ($1);`;
-//     pool.query(queryList, [req.body.listName])
-//         .then(result => {
-//             let [one] = result.rows
-//             pool.query(queryIngredient, [one.id])
-//                 .then(result => {
-//                     console.log('posting into list and ingredient', req.body);
-//                     res.sendStatus(200);
-//                 }).catch(error => {
-//                     console.log('error with posting to list/ingredient', error)
-//                     res.sendStatus(500);
-//                 });
-//         }).catch(error => {
-//             console.log(error);
-//             res.sendStatus(500);
-//         })
-// });
 
 module.exports = router;

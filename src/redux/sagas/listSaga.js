@@ -62,23 +62,23 @@ function* getIngredientsByID(action) {
     }
 }; 
 
+function* deleteList(action) {
+    try{
+        yield axios.delete(`/meal/list/${action.payload}`);
+        yield getList();
+    }catch(error) {
+        console.log('error with deleting list', error);
+    }
+}
+
 function* listSaga() {
     yield takeEvery('POST_LIST', postList)
     yield takeEvery('GET_LIST', getList)
     yield takeEvery('GET_LIST_BY_ID', getListByID)
+    yield takeEvery('DELETE_LIST', deleteList)
     yield takeEvery('POST_INGREDIENTS_FROM_LIST', postIngredientsFromList)
     yield takeEvery('POST_INGREDIENTS_FROM_MEAL', postIngredientsFromMeal)
     yield takeEvery('GET_INGREDIENTS_BY_ID', getIngredientsByID) //!!! --->  move this to ingredientSaga 
-    // yield takeEvery("POST_MEAL_ID", postMealID)
 }
-
-// function* postMealID(action){
-//     try{
-
-//         // yield put({type: "SET_MEAL_ID", payload: action.payload})
-//     }catch(err){
-//         console.log(err);  
-//     }
-// }
 
 export default listSaga;

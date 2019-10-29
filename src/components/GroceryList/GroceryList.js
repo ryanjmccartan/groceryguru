@@ -3,10 +3,7 @@ import {connect} from 'react-redux';
 import swal from 'sweetalert';
 import './GroceryList.css';
 
-
-
 class GroceryList extends Component {
-
 
 state = {
   listName: ''
@@ -15,6 +12,7 @@ state = {
 componentDidMount() {
   this.props.dispatch({type:'GET_LIST'});
   }
+
 
 handleChange = (event, param) => {
   this.setState({
@@ -26,7 +24,7 @@ submitList = () => {
   console.group('looing for listname', this.state.listName);
   this.props.dispatch({type: 'POST_LIST', payload: this.state});
   swal({
-    title: 'You created a list!',
+    title: 'List added!',
     icon: 'success'
   });
   this.setState({

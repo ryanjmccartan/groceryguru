@@ -99,7 +99,7 @@ addMeal = (event) => {
       <h4>Recipe:</h4>
       <input type='text' value={this.state.newMeal.recipe} onChange={(event) => {this.handleChange(event, 'recipe')}} placeholder="recipe instructions"/>
       <br/>
-      <button onClick={this.addMeal} type='submit' placeholder='Add Meal'>Submit</button>
+      <button onClick={this.addMeal} type='submit' placeholder='Add Meal'>Create Meal</button>
    
   </div>
     )
