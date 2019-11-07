@@ -1,6 +1,6 @@
 # Grocery Guru
 
-Grocery Guru will store a user’s favorite meal recipes and use that information to help easily create a grocery list that can then be modified to fit the user’s needs. Users can also add friends and view the meals they’re making, and if the user likes what they see, they can easily add that meal to their favorite meals list and then use that to add the necessary ingredients to their grocery list. 
+Grocery Guru is a mobile-first web application that is designed to bridge the gap between a user's favorite meals and their grocery needs. Users can name and create grocery lists based on their necessity, and they can then manually add ingredients straight to a list. Users can also store their favorite meals by adding a new recipe. Then can also select a grocery list to easily populate it with the ingredients from a selected meal. 
 
 ## Built With
 
