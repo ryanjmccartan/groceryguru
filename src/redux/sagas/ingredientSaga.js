@@ -31,12 +31,31 @@ function* deleteIngredient(action) {
     }
 }
 
+function* postIngredientsFromList(action){
+    console.log('posting from list', action.payload)
+    try{
+        yield axios.post('meal/fromlist', action.payload);
+        yield put({type: 'GET_INGREDIENTS_BY_ID', payload: action.payload.id})
+    }catch(error) {
+        console.log('error with posting new ingredients', error);
+    }
+}
+
+function* postIngredientsFromMeal(action){
+    console.log('posting from meal', action.payload)
+    try{
+        yield axios.post('meal/fromMeal', action.payload);
+    }catch(error) {
+        console.log('error with posting new ingredients', error);
+    }
+}
 
 function* ingredientSaga() {
     yield takeEvery('GET_INGREDIENT', getIngredient)
     yield takeEvery('DELETE_INGREDIENT', deleteIngredient)
     yield takeEvery('GET_INGREDIENTS_BY_ID', getIngredientsByID)
-
+    yield takeEvery('POST_INGREDIENTS_FROM_LIST', postIngredientsFromList)
+    yield takeEvery('POST_INGREDIENTS_FROM_MEAL', postIngredientsFromMeal)
 }
 
 export default ingredientSaga
