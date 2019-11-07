@@ -12,6 +12,16 @@ function* getIngredient(action) {
     }
 }
 
+function* getIngredientsByID(action) {
+    try{
+        const response = yield axios.get(`/meal/list/ingredients/${action.payload}`);
+        yield put({type: 'SET_LIST_INGREDIENTS', payload: response.data});
+        console.log('list ingredients', response.data);
+    }catch(error) {
+        console.log('error with getting list ingredients', error)
+    }
+}; 
+
 function* deleteIngredient(action) {
     try{
         yield axios.delete(`/meal/list/ingredient/${action.payload}`);
@@ -25,6 +35,8 @@ function* deleteIngredient(action) {
 function* ingredientSaga() {
     yield takeEvery('GET_INGREDIENT', getIngredient)
     yield takeEvery('DELETE_INGREDIENT', deleteIngredient)
+    yield takeEvery('GET_INGREDIENTS_BY_ID', getIngredientsByID)
+
 }
 
 export default ingredientSaga

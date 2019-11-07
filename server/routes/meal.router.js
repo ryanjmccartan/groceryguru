@@ -86,11 +86,10 @@ router.get('/list/:id', (req, res) =>{
     })
 })
 
-// GETs lists
+// GET lists
 router.get('/list', (req, res) => {
     console.log('getting lists');
     const queryText = `SELECT * FROM "list";`;
-    // const queryText = `SELECT "ingredient".ingredient_name FROM "ingredient" JOIN "list" ON "list".id = "ingredient".list_id;`;
     pool.query(queryText).then(result => {
         console.log('here are the lists', result.rows);
         res.send(result.rows);
@@ -113,7 +112,7 @@ router.get('/list/ingredients/:id', (req, res) => {
     })
 });
 
-// GETs meals
+// GET meals
 router.get('/', (req, res) => {
     console.log('getting meals');
     const queryText = `SELECT * FROM "meal";`;
@@ -218,6 +217,5 @@ router.delete('/list/ingredient/:id', (req, res) => {
 })
 
 //!! END DELETE REQUESTS !!//
-
 
 module.exports = router;
