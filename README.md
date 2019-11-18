@@ -1,6 +1,6 @@
 # Grocery Guru
 
-Grocery Guru is a mobile-first web application that is designed to bridge the gap between a user's favorite meals and their grocery needs. Users can name and create grocery lists based on their necessity, and they can then manually add ingredients straight to a list. Users can also store their favorite meals by adding a new recipe. Then can also select a grocery list to easily populate it with the ingredients from a selected meal. 
+Grocery Guru is a mobile-first web application that is designed to bridge the gap between a user's favorite meals and their grocery needs. Users can create grocery lists based on their necessity, and they can manually add ingredients straight to a list. Users can also store their favorite meals by adding a new recipe. They can then select a meal and add its ingredients to any of their grocery lists they've created. 
 
 ## Built With
 
@@ -40,6 +40,8 @@ CREATE TABLE "user" (
 
 If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
 
+Please refer to the database.sql file for additional database schema.
+
 ### Installing
 
 Steps to get the development environment running.
@@ -54,8 +56,6 @@ Steps to get the development environment running.
 https://docs.google.com/document/d/1pZR8mBmHNTxxDPfa_ptXowx4DQVVxV_FnC_skLBC1m4/edit#heading=h.x5497hm2698b (Will need to request access to view)
 
 ### Completed Features
-
-High level list of items completed.
 
 - Users are able to create grocery lists and add ingredients
 - Users are able to create meals and store those in their favorite meals list
@@ -72,4 +72,4 @@ High level list of items completed.
 
 ## Acknowledgments
 
-* Thank you to my Porta cohort, my instructors Casie and Dev, and the rest of the Prime Digital Academy Staff for giving me the support and encouragement to make this project.
+* Thank you to my Porta cohort, my instructors Casie and Dev, and the rest of the Prime Digital Academy Staff for giving me the support and encouragement to make this application.
