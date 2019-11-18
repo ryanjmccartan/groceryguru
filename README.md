@@ -21,7 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Link to software that is required before you attempt to start the app (e.g. node, mongo).
+Link to software that is required before you attempt to start the app.
 
 - [Node.js](https://nodejs.org/en/)
 - [Postgres](https://postgresapp.com/)
