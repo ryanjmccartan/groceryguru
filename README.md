@@ -48,8 +48,8 @@ Steps to get the development environment running.
 
 1. Download this project.
 2. `npm install`
-3. `npm start server`
-4. `npm start client`
+3. `npm run server`
+4. `npm run client`
 
 ## Documentation
 
