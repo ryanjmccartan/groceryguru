@@ -63,7 +63,7 @@ https://docs.google.com/document/d/1pZR8mBmHNTxxDPfa_ptXowx4DQVVxV_FnC_skLBC1m4/
 
 ### Next Steps
 
-- I would like to implement a Recipe API to allow users to search for meals besides needing to add them manually
+- I would like to implement a Recipe API to allow users to search for recipes
 - Creating a social system where you can add friends, view their meals, and add their meals to your own list
 
 ## Authors
